@@ -216,7 +216,9 @@ public class MeetingRoomActivity extends Activity {
         s.setSingleLine(false);
         s.setPadding(0, dp(8), 0, dp(8));
         card.addView(s);
-        card.addView(text(lag, 16, R.color.office_text_2, R.font.inter_regular));
+        TextView l = text(lag, 16, R.color.office_text_2, R.font.inter_regular);
+        l.setSingleLine(false);
+        card.addView(l);
         row.addView(card);
     }
 
