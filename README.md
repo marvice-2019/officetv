@@ -48,5 +48,6 @@ TV_HOST=<tv ip> tools/venv/bin/python -I tools/tv.py 'pm uninstall io.github.jqs
 |---|---|
 | HDMI cable on HDMI 1 | Works, no lag. The TV reports every HDMI port as connected, so Present cannot detect the cable; it opens the room screen and the cable card switches to HDMI 1. |
 | Windows Win + K | Works only while HaiCast is open (the Mirror card's Windows step opens it); pick "Office". |
-| Chrome Cast screen | Works, about 1 s lag. |
+| Chrome Cast screen | Works from Windows and Mac, about 1 s lag. |
+| Remote Home on an HDMI input | Returns to the office Home (checked with the real remote). |
 | iPhone AirPlay | Works through AirPlay Server, about 1 s lag. A VPN on the iPhone hides "Office" from the Screen Mirroring list; turn it off, or allow LAN access in the VPN. |
