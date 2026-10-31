@@ -2901,6 +2901,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 if (ssid != null) {
                     ssid = ssid.replace("\"", "").trim();
                     if (!ssid.isEmpty() && !ssid.contains("unknown") && !ssid.equals("0x")) text = ssid;
+                    // Office: the first word is enough ("Airtel_Infyst Global" -> "Airtel").
+                    if (text.equals(ssid) && getResources().getBoolean(R.bool.office_wifi_first_word)) {
+                        String first = ssid.split("[\\s_\\-]+", 2)[0];
+                        if (!first.isEmpty()) text = first;
+                    }
                 }
             }
         } catch (Exception ignored) {
