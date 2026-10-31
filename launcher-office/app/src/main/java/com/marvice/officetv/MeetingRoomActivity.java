@@ -192,17 +192,25 @@ public class MeetingRoomActivity extends Activity {
         root.addView(row);
         way(row, "1", getString(R.string.room_way_cable), getString(R.string.room_way_cable_steps),
                 getString(R.string.room_way_cable_lag));
-        way(row, "2", getString(R.string.room_way_windows), getString(R.string.room_way_windows_steps,
-                getString(R.string.room_miracast_name)), getString(R.string.room_way_windows_lag));
+        View windows = way(row, "2", getString(R.string.room_way_windows), getString(R.string.room_way_windows_steps,
+                castName()), getString(R.string.room_way_windows_lag));
+        // Tested on this TV: Win + K only connects while HaiCast is open, so this card opens it.
+        windows.setFocusable(true);
+        windows.setOnFocusChangeListener((v, has) -> {
+            v.setBackground(cardBg(has));
+            v.animate().scaleX(has ? 1.04f : 1f).scaleY(has ? 1.04f : 1f).setDuration(140).start();
+        });
+        windows.setOnClickListener(v -> MeetingRoom.openHaiCast(this));
         way(row, "3", getString(R.string.room_way_chrome), getString(R.string.room_way_chrome_steps, castName()),
                 getString(R.string.room_way_chrome_lag));
         TextView foot = text(getString(R.string.room_mirror_foot), 16, R.color.office_text_2, R.font.inter_regular);
         foot.setPadding(0, dp(18), 0, 0);
         root.addView(foot);
         setContentView(root);
+        windows.requestFocus();
     }
 
-    private void way(LinearLayout row, String n, String title, String steps, String lag) {
+    private View way(LinearLayout row, String n, String title, String steps, String lag) {
         LinearLayout card = new LinearLayout(this);
         card.setOrientation(LinearLayout.VERTICAL);
         card.setBackground(cardBg(false));
@@ -220,6 +228,7 @@ public class MeetingRoomActivity extends Activity {
         l.setSingleLine(false);
         card.addView(l);
         row.addView(card);
+        return card;
     }
 
     private void showCast() {

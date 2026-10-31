@@ -93,6 +93,16 @@ final class MeetingRoom {
                 .putExtra(MeetingRoomActivity.EXTRA_NO_CABLE, true));
     }
 
+    /** HaiCast, the TV's Miracast receiver. Windows' Win + K only connects to the TV while it is open. */
+    static void openHaiCast(Context ctx) {
+        try {
+            ctx.startActivity(new Intent().setComponent(new ComponentName("com.mediatek.androidbox",
+                    "com.mediatek.androidbox.BoxActivity")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        } catch (ActivityNotFoundException | SecurityException e) {
+            Log.w(TAG, "HaiCast refused: " + e.getClass().getSimpleName());
+        }
+    }
+
     /** The name laptops and phones see for Chrome Cast (Settings > Device name). */
     static String castName(Context ctx) {
         String n = Settings.Global.getString(ctx.getContentResolver(), Settings.Global.DEVICE_NAME);
