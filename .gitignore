@@ -8,3 +8,5 @@ tools/adbkey/
 *.jks
 *.keystore
 *signing*.properties
+# Local hook log
+.claude-designlog-hooks.log
