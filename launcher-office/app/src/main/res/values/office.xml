@@ -37,6 +37,10 @@
     <string name="office_now" translatable="false">Now</string>
     <string name="office_weather_none" translatable="false">Weather</string>
 
+    <!-- Office: the Wi-Fi pill shows the network name only. The Tailscale VPN is maintenance plumbing,
+         not something the room needs to see, and its badge squeezed the name out of the pill. -->
+    <bool name="office_vpn_badge">false</bool>
+
     <!-- Clocks: main clock is the TV's zone (Asia/Kolkata); the world clock below it. -->
     <string name="office_city" translatable="false">Bengaluru</string>
     <string name="world_city" translatable="false">London</string>

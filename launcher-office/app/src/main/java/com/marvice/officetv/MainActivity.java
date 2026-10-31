@@ -2908,7 +2908,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // With a VPN app configured, a VPN that is down matters too: show a red "VPN off" capsule then.
         boolean vpnDown = !vpn && online && !vpnApp.isEmpty();
         if (vpnPill) updateVpnPill(vpn);
-        if ((vpn || vpnDown) && !vpnPill) {
+        if ((vpn || vpnDown) && !vpnPill && getResources().getBoolean(R.bool.office_vpn_badge)) {
             // Network name, then the green lock-and-VPN (or red "VPN off") capsule drawn in place of the word.
             String badge = getString(vpn ? R.string.vpn : R.string.vpn_off);
             VpnBadge span = new VpnBadge(vpn ? getDrawable(R.drawable.ic_lock) : null, density);
