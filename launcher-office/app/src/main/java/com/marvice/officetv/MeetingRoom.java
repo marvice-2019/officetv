@@ -42,14 +42,33 @@ final class MeetingRoom {
     }
 
     /**
-     * True when a cable is in the laptop port. On this Haier set a laptop sending a picture reports
-     * INPUT_STATE_CONNECTED_STANDBY (1), not CONNECTED (0), so both count; only DISCONNECTED (2) and
-     * an unknown state do not.
+     * True only when the TV can really tell a cable is in the laptop port. The Haier MatrixTV BE reports
+     * INPUT_STATE_CONNECTED_STANDBY (1) on all four HDMI ports with nothing plugged in (checked on the TV,
+     * 31 Oct 2026), so when every HDMI port claims a connection the state means nothing and this returns
+     * false: Present then opens the room screen, and the cable is one more press on its card.
      */
     static boolean laptopConnected(Context ctx) {
+        if (hdmiStateMeaningless(ctx)) return false;
         int state = laptopState(ctx);
         return state == TvInputManager.INPUT_STATE_CONNECTED
                 || state == TvInputManager.INPUT_STATE_CONNECTED_STANDBY;
+    }
+
+    /** True when every HDMI port (two or more) claims a connection, as on this set and some Sony sets. */
+    static boolean hdmiStateMeaningless(Context ctx) {
+        try {
+            TvInputManager tim = (TvInputManager) ctx.getSystemService(Context.TV_INPUT_SERVICE);
+            if (tim == null) return true;
+            int ports = 0, claimed = 0;
+            for (android.media.tv.TvInputInfo info : tim.getTvInputList()) {
+                if (info.getType() != android.media.tv.TvInputInfo.TYPE_HDMI || info.getParentId() != null) continue;
+                ports++;
+                if (tim.getInputState(info.getId()) != TvInputManager.INPUT_STATE_DISCONNECTED) claimed++;
+            }
+            return ports > 1 && claimed == ports;
+        } catch (RuntimeException e) {
+            return true;
+        }
     }
 
     /** Switches to the laptop's HDMI port. Returns false when the TV app refused, so the caller can fall back. */

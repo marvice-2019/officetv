@@ -134,7 +134,9 @@ public class MeetingRoomActivity extends Activity {
                 getString(R.string.room_standup_sub));
         boolean connected = MeetingRoom.laptopConnected(this);
         hubCard(row, "laptop", R.drawable.ic_input, getString(R.string.room_laptop),
-                connected ? getString(R.string.room_laptop_connected) : getString(R.string.room_laptop_empty));
+                connected ? getString(R.string.room_laptop_connected)
+                        : MeetingRoom.hdmiStateMeaningless(this) ? getString(R.string.room_laptop_unknown)
+                        : getString(R.string.room_laptop_empty));
         setContentView(root);
         View focus = lastHubCard != null ? row.findViewWithTag(lastHubCard) : null;
         (focus != null ? focus : first).requestFocus();

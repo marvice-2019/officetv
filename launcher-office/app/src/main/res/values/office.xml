@@ -57,7 +57,7 @@
     <!-- The name Windows shows under Win + K; filled in after the test with a real laptop. -->
     <string name="room_miracast_name" translatable="false">Haier MatrixTV BE</string>
     <string name="room_hub_sub" translatable="false">Meeting room</string>
-    <string name="room_no_cable" translatable="false">No laptop on HDMI 1. Mirror wirelessly, or plug in a cable.</string>
+    <string name="room_no_cable" translatable="false">Mirror a laptop wirelessly, or use a cable on HDMI 1.</string>
     <string name="room_free_until" translatable="false">Free until %1$s</string>
     <string name="room_in_use_until" translatable="false">In use until %1$s</string>
     <string name="room_free_today" translatable="false">Free for the rest of the day</string>
@@ -93,6 +93,8 @@
     <string name="room_laptop" translatable="false">Laptop cable</string>
     <string name="room_laptop_connected" translatable="false">HDMI 1: connected, press to show</string>
     <string name="room_laptop_empty" translatable="false">HDMI 1 empty</string>
+    <!-- This TV reports every HDMI port as connected, so the card cannot say whether a cable is in. -->
+    <string name="room_laptop_unknown" translatable="false">Switch to HDMI 1</string>
 
     <integer name="standup_minutes">10</integer>
     <!-- Sample data until the team sheet and calendars connect. -->
