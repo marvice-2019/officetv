@@ -164,16 +164,19 @@ final class OfficeHome {
         if (shown == 0) list.addView(meetingRow("", "No more meetings today", null, accent));
     }
 
+    /** One meeting: time (and Now / countdown badge) on the first line, the title on its own line below. */
     private View meetingRow(String when, String title, String badge, int accent) {
+        LinearLayout block = new LinearLayout(activity);
+        block.setOrientation(LinearLayout.VERTICAL);
+        block.setPadding(0, dp(6), 0, 0);
         LinearLayout row = new LinearLayout(activity);
         row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setPadding(0, dp(4), 0, 0);
+        row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        block.addView(row);
         TextView time = text(when, R.color.office_text_2, R.font.inter_regular);
-        time.setMinWidth(dp(72));
         row.addView(time);
         TextView name = text(title, R.color.office_text, R.font.inter_regular);
-        name.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
-        row.addView(name);
+        block.addView(name);
         if (badge != null) {
             TextView b = text(badge, R.color.office_text, R.font.inter_medium);
             GradientDrawable bg = new GradientDrawable();
@@ -187,7 +190,7 @@ final class OfficeHome {
             b.setLayoutParams(lp);
             row.addView(b);
         }
-        return row;
+        return block;
     }
 
     private static String countdown(long ms) {

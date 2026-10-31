@@ -25,7 +25,7 @@
     <string name="cant_open">Can\'t open %1$s</string>
     <string name="date_format">EEEE  d MMMM</string>
     <!-- Date next to the clock on Home; a locale can split it over two lines with \n. -->
-    <string name="date_format_home" translatable="false">@string/date_format</string>
+    <string name="date_format_home" translatable="false">EEE, d MMM</string>
     <string name="shamsi_month_farvardin">Farvardin</string>
     <string name="shamsi_month_ordibehesht">Ordibehesht</string>
     <string name="shamsi_month_khordad">Khordad</string>
