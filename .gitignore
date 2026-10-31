@@ -1,0 +1,10 @@
+# Screenshots from the TV show names, Wi-Fi and accounts: never commit them.
+shots/
+backup/
+work/
+__pycache__/
+tools/venv/
+tools/adbkey/
+*.jks
+*.keystore
+*signing*.properties
