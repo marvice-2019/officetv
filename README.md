@@ -34,7 +34,7 @@ was installed from F-Droid on 31 October 2026 at the owner's request: free, no a
 APK SHA-256 `b8c7c595ed93f91562feedce92c27800f08f9c84df424f6ac2045e82324cf2a4`, signed by the developer
 (`OU=jqssun`). Its server name is set to "Office", it starts at boot and runs in the background.
 Tested: iPhone Screen Mirroring to "Office" works, about 1 s lag. Mac not yet tested.
-Its optional PIN is not set yet: until it is, anyone on the office Wi-Fi can mirror to the TV.
+Its optional PIN is off by the owner's choice (31 October 2026): anyone on the office Wi-Fi can mirror to the TV.
 
 Remove it:
 
