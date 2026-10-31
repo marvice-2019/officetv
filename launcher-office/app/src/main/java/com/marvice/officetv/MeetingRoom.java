@@ -103,6 +103,16 @@ final class MeetingRoom {
         }
     }
 
+    /** AirPlay Server (open source, io.github.jqssun.airplay): opening it starts the receiver iPhones and Macs see. */
+    static void openAirPlay(Context ctx) {
+        try {
+            ctx.startActivity(new Intent().setComponent(new ComponentName("io.github.jqssun.airplay",
+                    "io.github.jqssun.airplay.MainActivity")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        } catch (ActivityNotFoundException | SecurityException e) {
+            Log.w(TAG, "AirPlay Server refused: " + e.getClass().getSimpleName());
+        }
+    }
+
     /** The name laptops and phones see for Chrome Cast (Settings > Device name). */
     static String castName(Context ctx) {
         String n = Settings.Global.getString(ctx.getContentResolver(), Settings.Global.DEVICE_NAME);

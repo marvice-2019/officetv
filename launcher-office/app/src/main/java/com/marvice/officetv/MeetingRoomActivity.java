@@ -203,8 +203,15 @@ public class MeetingRoomActivity extends Activity {
         windows.setOnClickListener(v -> MeetingRoom.openHaiCast(this));
         way(row, "3", getString(R.string.room_way_chrome), getString(R.string.room_way_chrome_steps, castName()),
                 getString(R.string.room_way_chrome_lag));
-        way(row, "4", getString(R.string.room_way_airplay), getString(R.string.room_way_airplay_steps, castName()),
+        View apple = way(row, "4", getString(R.string.room_way_airplay), getString(R.string.room_way_airplay_steps, castName()),
                 getString(R.string.room_way_airplay_lag));
+        // One press makes sure the AirPlay receiver is running (it starts at boot, but can be stopped).
+        apple.setFocusable(true);
+        apple.setOnFocusChangeListener((v, has) -> {
+            v.setBackground(cardBg(has));
+            v.animate().scaleX(has ? 1.04f : 1f).scaleY(has ? 1.04f : 1f).setDuration(140).start();
+        });
+        apple.setOnClickListener(v -> MeetingRoom.openAirPlay(this));
         TextView foot = text(getString(R.string.room_mirror_foot), 16, R.color.office_text_2, R.font.inter_regular);
         foot.setPadding(0, dp(18), 0, 0);
         root.addView(foot);
