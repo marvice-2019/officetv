@@ -41,6 +41,17 @@ final class MeetingRoom {
         }
     }
 
+    /**
+     * True when a cable is in the laptop port. On this Haier set a laptop sending a picture reports
+     * INPUT_STATE_CONNECTED_STANDBY (1), not CONNECTED (0), so both count; only DISCONNECTED (2) and
+     * an unknown state do not.
+     */
+    static boolean laptopConnected(Context ctx) {
+        int state = laptopState(ctx);
+        return state == TvInputManager.INPUT_STATE_CONNECTED
+                || state == TvInputManager.INPUT_STATE_CONNECTED_STANDBY;
+    }
+
     /** Switches to the laptop's HDMI port. Returns false when the TV app refused, so the caller can fall back. */
     static boolean openLaptop(Context ctx) {
         Uri uri = TvContract.buildChannelUriForPassthroughInput(laptopInput(ctx));
@@ -57,7 +68,7 @@ final class MeetingRoom {
 
     /** The Present tile: straight to the laptop when its cable is in, else the room screen with Mirror first. */
     static void present(Context ctx) {
-        if (laptopState(ctx) == TvInputManager.INPUT_STATE_CONNECTED && openLaptop(ctx)) return;
+        if (laptopConnected(ctx) && openLaptop(ctx)) return;
         ctx.startActivity(new Intent(ctx, MeetingRoomActivity.class)
                 .putExtra(MeetingRoomActivity.EXTRA_MODE, MeetingRoomActivity.MODE_HUB)
                 .putExtra(MeetingRoomActivity.EXTRA_NO_CABLE, true));

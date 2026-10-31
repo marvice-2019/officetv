@@ -132,7 +132,7 @@ public class MeetingRoomActivity extends Activity {
                 getString(R.string.room_timer_sub));
         hubCard(row, MODE_STANDUP, R.drawable.ic_office_standup, getString(R.string.room_standup),
                 getString(R.string.room_standup_sub));
-        boolean connected = MeetingRoom.laptopState(this) == TvInputManager.INPUT_STATE_CONNECTED;
+        boolean connected = MeetingRoom.laptopConnected(this);
         hubCard(row, "laptop", R.drawable.ic_input, getString(R.string.room_laptop),
                 connected ? getString(R.string.room_laptop_connected) : getString(R.string.room_laptop_empty));
         setContentView(root);
