@@ -26,3 +26,27 @@ cd launcher-office && TV_HOST=<tv ip> ./build-and-install.sh
 ```bash
 TV_HOST=<tv ip> tools/restore.sh examples/haier-matrixtv-be-india/debloat.txt com.google.android.apps.tv.launcherx
 ```
+
+## Extra app on the TV: AirPlay Server (iPhone, iPad, Mac mirroring)
+
+The TV has no AirPlay of its own. `io.github.jqssun.airplay` (AirPlay Server 0.0.36, GPL-3.0, built on UxPlay)
+was installed from F-Droid on 31 October 2026 at the owner's request: free, no anti-features listed on F-Droid,
+APK SHA-256 `b8c7c595ed93f91562feedce92c27800f08f9c84df424f6ac2045e82324cf2a4`, signed by the developer
+(`OU=jqssun`). Its server name is set to "Office", it starts at boot and runs in the background.
+Tested: iPhone Screen Mirroring to "Office" works, about 1 s lag. Mac not yet tested.
+Its optional PIN is not set yet: until it is, anyone on the office Wi-Fi can mirror to the TV.
+
+Remove it:
+
+```bash
+TV_HOST=<tv ip> tools/venv/bin/python -I tools/tv.py 'pm uninstall io.github.jqssun.airplay'
+```
+
+## Mirroring on this TV (tested 31 October 2026)
+
+| Way | Result |
+|---|---|
+| HDMI cable on HDMI 1 | Works, no lag. The TV reports every HDMI port as connected, so Present cannot detect the cable; it opens the room screen and the cable card switches to HDMI 1. |
+| Windows Win + K | Works only while HaiCast is open (the Mirror card's Windows step opens it); pick "Office". |
+| Chrome Cast screen | Works, about 1 s lag. |
+| iPhone AirPlay | Works through AirPlay Server, about 1 s lag. |

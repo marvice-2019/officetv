@@ -203,6 +203,8 @@ public class MeetingRoomActivity extends Activity {
         windows.setOnClickListener(v -> MeetingRoom.openHaiCast(this));
         way(row, "3", getString(R.string.room_way_chrome), getString(R.string.room_way_chrome_steps, castName()),
                 getString(R.string.room_way_chrome_lag));
+        way(row, "4", getString(R.string.room_way_airplay), getString(R.string.room_way_airplay_steps, castName()),
+                getString(R.string.room_way_airplay_lag));
         TextView foot = text(getString(R.string.room_mirror_foot), 16, R.color.office_text_2, R.font.inter_regular);
         foot.setPadding(0, dp(18), 0, 0);
         root.addView(foot);
