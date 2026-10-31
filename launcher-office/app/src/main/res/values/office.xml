@@ -75,7 +75,7 @@
     <string name="room_way_chrome_lag" translatable="false">Lag: about 1 second. Fine for slides, not for video calls.</string>
     <string name="room_mirror_foot" translatable="false">Android phones: Cast or Screen cast to \"Office\".</string>
     <string name="room_way_airplay" translatable="false">Apple</string>
-    <string name="room_way_airplay_steps" translatable="false">iPhone, iPad or Mac: Control Center, Screen Mirroring, then \"%1$s\". Same Wi-Fi as the TV.</string>
+    <string name="room_way_airplay_steps" translatable="false">iPhone, iPad or Mac: Control Center, Screen Mirroring, then \"%1$s\". Same Wi-Fi as the TV, VPN off.</string>
     <string name="room_way_airplay_lag" translatable="false">Lag: about 1 second. Tested with an iPhone; Mac not yet tested.</string>
     <string name="room_cast" translatable="false">Cast</string>
     <string name="room_cast_how" translatable="false">From a phone or laptop on the office Wi-Fi: press Cast in YouTube, Meet or Chrome and pick this name.</string>
