@@ -51,6 +51,70 @@
     <string name="weather_lat" translatable="false">12.97</string>
     <string name="weather_lon" translatable="false">77.59</string>
 
+    <!-- Meeting room (spec screen 4). The laptop is on HDMI 1 (HDMIInputService/HW5 on this TV). -->
+    <string name="room_laptop_input" translatable="false">com.mediatek.tvinput/.hdmi.HDMIInputService/HW5</string>
+    <string name="room_cast_name_fallback" translatable="false">Office</string>
+    <!-- The name Windows shows under Win + K; filled in after the test with a real laptop. -->
+    <string name="room_miracast_name" translatable="false">Haier MatrixTV BE</string>
+    <string name="room_hub_sub" translatable="false">Meeting room</string>
+    <string name="room_no_cable" translatable="false">No laptop on HDMI 1. Mirror wirelessly, or plug in a cable.</string>
+    <string name="room_free_until" translatable="false">Free until %1$s</string>
+    <string name="room_in_use_until" translatable="false">In use until %1$s</string>
+    <string name="room_free_today" translatable="false">Free for the rest of the day</string>
+    <string name="room_mirror" translatable="false">Mirror laptop</string>
+    <string name="room_mirror_sub" translatable="false">Cable, Win + K, Chrome</string>
+    <string name="room_mirror_status_waiting" translatable="false">Waiting for a laptop</string>
+    <string name="room_way_cable" translatable="false">Cable</string>
+    <string name="room_way_cable_steps" translatable="false">HDMI cable into the TV\'s HDMI 1, then press Present. Best for video and anything sensitive.</string>
+    <string name="room_way_cable_lag" translatable="false">Lag: not yet tested</string>
+    <string name="room_way_windows" translatable="false">Windows, wireless</string>
+    <string name="room_way_windows_steps" translatable="false">Press Win + K and pick \"%1$s\". No office Wi-Fi password needed.</string>
+    <string name="room_way_windows_lag" translatable="false">Lag: not yet tested</string>
+    <string name="room_way_chrome" translatable="false">Chrome, any laptop</string>
+    <string name="room_way_chrome_steps" translatable="false">Chrome menu, Cast, save and share, Cast. Choose Cast screen or Cast tab, then \"%1$s\". Laptop on the same Wi-Fi.</string>
+    <string name="room_way_chrome_lag" translatable="false">Lag: not yet tested</string>
+    <string name="room_mirror_foot" translatable="false">Macs have no AirPlay to this TV. Use the cable or Chrome.</string>
+    <string name="room_cast" translatable="false">Cast</string>
+    <string name="room_cast_how" translatable="false">From a phone or laptop on the office Wi-Fi: press Cast in YouTube, Meet or Chrome and pick this name.</string>
+    <string name="room_cast_note" translatable="false">Casting plays on the TV; your device becomes the remote.</string>
+    <string name="room_timer" translatable="false">Timer</string>
+    <string name="room_timer_sub" translatable="false">Meeting countdown</string>
+    <string name="room_timer_ends" translatable="false">Ends at %1$s</string>
+    <string name="room_timer_five" translatable="false">5 minutes left</string>
+    <string name="room_timer_over" translatable="false">Time is up</string>
+    <string name="room_timer_pick" translatable="false">No meeting now. Pick a timer below.</string>
+    <string name="room_standup" translatable="false">Stand-up</string>
+    <string name="room_standup_sub" translatable="false">10 minutes, equal turns</string>
+    <string name="room_standup_line" translatable="false">This turn %1$s  ·  Stand-up %2$s left  ·  Next: %3$s</string>
+    <string name="room_standup_last" translatable="false">wrap-up</string>
+    <string name="room_standup_hint" translatable="false">Press Right for the next speaker</string>
+    <string name="room_standup_done" translatable="false">Due today</string>
+    <string name="room_standup_done_hint" translatable="false">Stand-up done. Press Back to return.</string>
+    <string name="room_laptop" translatable="false">Laptop cable</string>
+    <string name="room_laptop_connected" translatable="false">HDMI 1: connected, press to show</string>
+    <string name="room_laptop_empty" translatable="false">HDMI 1 empty</string>
+
+    <integer name="standup_minutes">10</integer>
+    <!-- Sample data until the team sheet and calendars connect. -->
+    <string-array name="standup_team" translatable="false">
+        <item>Design</item>
+        <item>Development</item>
+        <item>Marketing</item>
+        <item>Operations</item>
+    </string-array>
+    <string-array name="sample_due_today" translatable="false">
+        <item>Design: festive campaign creatives</item>
+        <item>Development: Hourhand release check</item>
+        <item>Marketing: weekly ads report</item>
+    </string-array>
+    <!-- Boardroom bookings today, "HH:mm|minutes|title". -->
+    <string-array name="sample_room_bookings" translatable="false">
+        <item>10:30|45|IB partner call</item>
+        <item>15:00|60|Client review: Q4 campaign</item>
+        <item>17:30|30|Design stand-up</item>
+        <item>18:00|60|Board review</item>
+    </string-array>
+
     <!-- Sample meetings for this batch only: "HH:mm|minutes|title". Titles only, never attendees. -->
     <string-array name="sample_meetings_marvice" translatable="false">
         <item>11:00|30|Weekly ops review</item>

@@ -84,6 +84,12 @@
 
         <!-- Office screens opened from the dock (Dashboard, Present, Meetings). Not exported. -->
         <activity
+            android:name=".MeetingRoomActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TvHome"
+            android:screenOrientation="landscape" />
+
+        <activity
             android:name=".OfficeScreenActivity"
             android:exported="false"
             android:theme="@style/Theme.TvHome"
