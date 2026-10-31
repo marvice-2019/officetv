@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Office build defaults (batch 1). theme/config.json overrides these in a later batch. -->
+<resources>
+    <!-- Boardroom-calm palette (spec "Design"). -->
+    <color name="office_bg">#FF0B0D0C</color>
+    <color name="office_surface">#FF151917</color>
+    <color name="office_surface_hi">#FF1C211F</color>
+    <color name="office_text">#FFF2F1EC</color>
+    <color name="office_text_2">#FF9AA39E</color>
+    <color name="office_stroke">#1FF2F1EC</color>
+    <color name="status_on_track">#FF3FB57A</color>
+    <color name="status_at_risk">#FFE0A33A</color>
+    <color name="status_off_track">#FFE05A4F</color>
+
+    <!-- Company accents: only on focus and on that company's own cards, never as large fills. -->
+    <color name="marvice_accent">#FF1F4D3A</color>
+    <color name="marvice_accent_2">#FFB08D57</color>
+    <color name="infyst_accent">#FF68C038</color>
+    <color name="infyst_accent_2">#FF283030</color>
+
+    <string name="company_marvice" translatable="false">Marvice Media Private Limited</string>
+    <string name="company_infyst" translatable="false">Infyst Global Private Limited</string>
+    <string name="company_marvice_short" translatable="false">Marvice Media</string>
+    <string name="company_infyst_short" translatable="false">Infyst Global</string>
+    <string name="company_both" translatable="false">Both companies</string>
+    <string name="leader_marvice" translatable="false">Yuvaraj GS</string>
+    <string name="leader_infyst" translatable="false">Vishal</string>
+
+    <string name="office_dashboard" translatable="false">Dashboard</string>
+    <string name="office_present" translatable="false">Present</string>
+    <string name="office_meetings" translatable="false">Meetings</string>
+    <string name="office_alerts" translatable="false">Alerts</string>
+    <string name="office_today" translatable="false">Today</string>
+    <string name="office_sample" translatable="false">Sample data</string>
+    <string name="office_placeholder" translatable="false">%1$s arrives in a later batch. Press Back to return.</string>
+    <string name="office_next_in" translatable="false">in %1$s</string>
+    <string name="office_now" translatable="false">Now</string>
+    <string name="office_weather_none" translatable="false">Weather</string>
+
+    <!-- Clocks: main clock is the TV's zone (Asia/Kolkata); the world clock below it. -->
+    <string name="office_city" translatable="false">Bengaluru</string>
+    <string name="world_city" translatable="false">London</string>
+    <string name="world_zone" translatable="false">Europe/London</string>
+    <!-- Open-Meteo, no key. Bengaluru. -->
+    <string name="weather_lat" translatable="false">12.97</string>
+    <string name="weather_lon" translatable="false">77.59</string>
+
+    <!-- Sample meetings for this batch only: "HH:mm|minutes|title". Titles only, never attendees. -->
+    <string-array name="sample_meetings_marvice" translatable="false">
+        <item>11:00|30|Weekly ops review</item>
+        <item>15:00|60|Client review: Q4 campaign</item>
+        <item>17:30|30|Design stand-up</item>
+    </string-array>
+    <string-array name="sample_meetings_infyst" translatable="false">
+        <item>10:30|45|IB partner call</item>
+        <item>14:00|30|Platform release check</item>
+        <item>16:30|60|KYC vendor review</item>
+    </string-array>
+</resources>

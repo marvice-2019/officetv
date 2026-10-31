@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pre-rendered glass: translucent fill and a 1 px light stroke. No blur. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#CC151917" />
+    <stroke android:width="0.5dp" android:color="#24F2F1EC" />
+    <corners android:radius="20dp" />
+</shape>

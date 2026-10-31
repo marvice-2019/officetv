@@ -1,0 +1,6 @@
+{
+  "tv": "Haier MatrixTV BE (HRT31EUF, jordan, MediaTek), India",
+  "os": "Google TV 14",
+  "brand": "Haier",
+  "notes": "Retail demo, cleaner, e-manual, gaming bar, partner rows and the Haier tab; every streaming app kept, Haier TV+ is a streaming app here; setupwraith owns the saved Wi-Fi until forget and re-join (the TV's own Forget needed a second try), then goes with launcherx; the firmware re-enables oemtabprovider at every boot; the factory manager starts and closes itself at boot; gear button left unmapped to keep the volume ramp; Private DNS broke resolution while a Tailscale VPN was up"
+}

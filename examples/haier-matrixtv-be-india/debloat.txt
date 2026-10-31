@@ -1,0 +1,69 @@
+# Haier MatrixTV BE (ro.product.model "Haier MatrixTV BE", product HRT31EUF, device jordan), Google TV 14
+# (API 34), firmware UKNV.260313.001 (same UKNV line as examples/haier-h32s80efx, ten days newer),
+# MediaTek, CVTE board (com.cvte.tv.at, com.cvte.autobacklight present), India.
+# 1.83 GB RAM (MemTotal 1830828 kB). 3840x2160 panel, UI rendered at 1920x1080 (factory wm size override),
+# 320 dpi. Do not change the override.
+# Copied from examples/haier-h32s80efx/debloat.txt and edited for this set; quirks follow haier-hr9216eu.
+# Tested on 31 October 2026 on one set, two reboots, real remote.
+#
+# Apply:   TV_HOST=<tv ip> tools/disable.sh examples/haier-matrixtv-be-india/debloat.txt
+# Undo:    TV_HOST=<tv ip> tools/restore.sh examples/haier-matrixtv-be-india/debloat.txt com.google.android.apps.tv.launcherx
+# Everything is DISABLED, not uninstalled. Comment out any line you want to keep.
+# On the test set the list was applied one `pm disable-user --user 0` per shell call, not through disable.sh.
+#
+# Stock launcher: com.google.android.apps.tv.launcherx (.home.HomeActivity), disabled by
+# launcher/build-and-install.sh after the new launcher was installed and confirmed Home (mFocusedApp).
+# Home handlers before: launcherx priority 2, setupwraith/.RecoveryActivity priority 1,
+# com.android.tv.settings/.system.FallbackHome. Live TV: com.mediatek.wwtv.tvcenter (.nav.TurnkeyUiMainActivity).
+# Already disabled from the factory: nothing. Netflix and Prime Video came enabled.
+#
+# setupwraith owned the saved Wi-Fi (dumpsys wifi cname=com.google.android.tungsten.setupwraith). The TV's
+# own Forget did not take on the first try; the second try removed it (EVENT_FORGET_WIFI) and the network
+# re-joined from Settings came back as cname=android.uid.system:1000. setupwraith went after that.
+#
+# This firmware re-enables com.haier.oemtabprovider at every boot (seen on two reboots), as on both Haier
+# siblings. It is inert with launcherx disabled; leave it.
+# At boot com.at.factory.factorymanager starts itself from its own FactoryReceiver, moves to the back and
+# finishes about 18 s later. That is the firmware's own routine, not a factory menu being opened; Play
+# services, Netflix and Chromecast stayed enabled after both reboots.
+#
+# System updater: com.google.android.gms (Google OTA, A/B update_engine). No Haier updater; the only
+# ota/update package is com.telink.lt.ota (the remote's firmware). Keep both.
+# Network ADB: ro.adb.secure=1; adbd listens on every interface; port 5555 survived both reboots here.
+# Remote, with the stock home disabled: Netflix, YouTube, Prime Video, Input, voice and the volume ramp
+# work with no helper. The gear button does nothing; HOME_KEY_SERVICE was left off to keep the volume ramp.
+# Private DNS (dns.adguard-dns.com, hostname mode) stopped all name resolution on this set while the
+# Tailscale app's VPN was up; it was set back to opportunistic.
+#
+# Not installed on this set: it.hon.service, tv.anoki.acr.anokiacroptin, com.google.android.videos, Zeasn
+# packages, com.telink.lt (only .ota), com.mediatek.tis, com.mediatek.tv.agent, com.mediatek.dtv.tvinput.*,
+# com.cltv.*.
+#
+# KEEP, even though the names look like bloat (components checked with dumpsys package, never opened):
+# - Every streaming app, by owner rule: Netflix, Prime Video, YouTube, YouTube Music, JioHotstar, SonyLIV,
+#   ZEE5 (com.graymatrix.did), FanCode, Apple TV, Spotify, and com.haier.apps ("Haier TV+" here, a
+#   streaming app; a promo app on the siblings).
+# - com.google.android.katniss, com.google.android.tv.assistant, com.google.android.tv.remote.service (voice),
+#   com.google.android.apps.mediashell (Chromecast), com.mediatek.androidbox (HaiCast / Miracast).
+# - com.haier.appmanager.dispatcher, com.haier.hkcfac, com.haier.tv.hmagicboard: global key receivers.
+# - com.mediatek.autopair, com.haier.bt_pair_tips: Bluetooth remote pairing.
+# - com.mediatek.wwtv.tvcenter, com.mediatek.tvinput, com.mediatek.tv.service, com.mediatek.wwtv.setupwizard,
+#   com.mediatek.wwtv.mediaplayer, com.google.android.tv.inputplayer. HDMI 1-4 = com.mediatek.tvinput/
+#   .hdmi.HDMIInputService/HW5-HW8, AV = .composite.CompositeInputService/HW2.
+# - com.cvte.tv.at, com.cvte.autobacklight, com.at.factory.*, mediatek.factorymenu.ui: factory - never open.
+# - Owner choice: com.haierubic.usmartdevice, com.haier.launcher.haiermatrix, com.google.android.play.games,
+#   com.google.android.feedback, com.mstar.android.tv.disclaimercustomization, com.google.android.apps.tv.dreamx.
+
+# Haier content and ads on the stock home
+com.haier.oemtabprovider                         # the "Haier" tab on the Google TV home (re-enabled at boot)
+com.mediatek.android.leanbacklauncher.partnercustomizer  # partner rows on the stock home
+
+# Retail demo, cleaner, manual, gaming bar
+fusion.android.tv.demo                           # retail demo mode (HRetailDisplay_4K)
+com.haier.tvhousekeeper                          # "TV Assistant" cleaner
+com.haier.emanual                                # e-manual
+com.haier.gamingbar                              # gaming bar overlay
+
+# Google TV home handover. setupwraith's RecoveryActivity claims HOME at priority 1; see the Wi-Fi note.
+com.google.android.tungsten.setupwraith
+com.google.android.apps.tv.launcherx

@@ -1,0 +1,8 @@
+local.properties
+.gradle/
+build/
+app/build/
+# Release signing never lives in the repo.
+*.jks
+*.keystore
+*signing*.properties
