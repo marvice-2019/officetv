@@ -10,3 +10,5 @@ tools/adbkey/
 *signing*.properties
 # Local hook log
 .claude-designlog-hooks.log
+# Local Design-Log working files
+design-log/
