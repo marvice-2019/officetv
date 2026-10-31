@@ -21,7 +21,15 @@ android {
     def signingFile = file(System.getenv('OFFICETV_SIGNING') ?: "${System.getProperty('user.home')}/keystores/officetv-signing.properties")
     signingConfigs {
         release {
-            if (signingFile.exists()) {
+            // Alternative with nothing on disk but the keystore: OFFICETV_STORE_FILE + OFFICETV_STORE_PASSWORD
+            // in the environment for this build only (alias officetv, key password = store password).
+            def envStore = System.getenv('OFFICETV_STORE_FILE')
+            if (envStore) {
+                storeFile file(envStore)
+                storePassword System.getenv('OFFICETV_STORE_PASSWORD')
+                keyAlias 'officetv'
+                keyPassword System.getenv('OFFICETV_STORE_PASSWORD')
+            } else if (signingFile.exists()) {
                 def p = new Properties()
                 signingFile.withInputStream { p.load(it) }
                 storeFile file(p.getProperty('storeFile'))
