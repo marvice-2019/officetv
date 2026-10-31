@@ -62,17 +62,17 @@
     <string name="room_in_use_until" translatable="false">In use until %1$s</string>
     <string name="room_free_today" translatable="false">Free for the rest of the day</string>
     <string name="room_mirror" translatable="false">Mirror laptop</string>
-    <string name="room_mirror_sub" translatable="false">Cable, Win + K, Chrome</string>
+    <string name="room_mirror_sub" translatable="false">Chrome Cast or cable</string>
     <string name="room_mirror_status_waiting" translatable="false">Waiting for a laptop</string>
     <string name="room_way_cable" translatable="false">Cable</string>
     <string name="room_way_cable_steps" translatable="false">HDMI cable into the TV\'s HDMI 1, then press Present. Best for video and anything sensitive.</string>
-    <string name="room_way_cable_lag" translatable="false">Lag: not yet tested</string>
+    <string name="room_way_cable_lag" translatable="false">Lag: none (direct picture). Tested with a Windows laptop.</string>
     <string name="room_way_windows" translatable="false">Windows, wireless</string>
     <string name="room_way_windows_steps" translatable="false">Press Win + K and pick \"%1$s\". No office Wi-Fi password needed.</string>
-    <string name="room_way_windows_lag" translatable="false">Lag: not yet tested</string>
+    <string name="room_way_windows_lag" translatable="false">Not working on this TV yet: the TV is found but mirroring does not start.</string>
     <string name="room_way_chrome" translatable="false">Chrome, any laptop</string>
     <string name="room_way_chrome_steps" translatable="false">Chrome menu, Cast, save and share, Cast. Choose Cast screen or Cast tab, then \"%1$s\". Laptop on the same Wi-Fi.</string>
-    <string name="room_way_chrome_lag" translatable="false">Lag: not yet tested</string>
+    <string name="room_way_chrome_lag" translatable="false">Lag: about 1 second. Fine for slides, not for video calls.</string>
     <string name="room_mirror_foot" translatable="false">Macs have no AirPlay to this TV. Use the cable or Chrome.</string>
     <string name="room_cast" translatable="false">Cast</string>
     <string name="room_cast_how" translatable="false">From a phone or laptop on the office Wi-Fi: press Cast in YouTube, Meet or Chrome and pick this name.</string>
