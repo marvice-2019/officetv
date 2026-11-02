@@ -235,7 +235,7 @@ public class AccountsActivity extends Activity {
             } catch (Graph.AuthException e) {
                 new Vault(this).removePrefix(a.vaultPrefix());
                         if (e.getMessage() != null && (e.getMessage().contains("client) ID") || e.getMessage().contains("tenant")
-                        || e.getMessage().contains("public client"))) {
+                        )) {
                     appRegs.edit().remove(owner + ".tenant").remove(owner + ".client").apply();
                 }
                 main.post(() -> showPanel("Not connected", e.getMessage() + "\n\nPress Back.", null, null));
