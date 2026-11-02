@@ -549,6 +549,10 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             MeetingRoom.present(ctx);
             return;
         }
+        if (e.kind == Entry.OFFICE && "meetings".equals(e.officeId)) {
+            ctx.startActivity(new Intent(ctx, MeetingsActivity.class));
+            return;
+        }
         if (e.kind == Entry.OFFICE) {
             ctx.startActivity(new Intent(ctx, OfficeScreenActivity.class)
                     .putExtra(OfficeScreenActivity.EXTRA_SCREEN, e.officeId));

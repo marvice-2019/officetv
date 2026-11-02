@@ -10,6 +10,10 @@
     <!-- Office build: weather from Open-Meteo (this batch). Later batches add the read-only connections. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Batch 4: meeting reminders and change alerts over other apps (granted with appops by build-and-install),
+         and on-time reminder alarms. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- Needed since Android 10 to read the Wi-Fi network name for the network pill. Never requested at
          runtime: build-and-install grants it with pm grant, so lint's Android 12 "ask for COARSE with
@@ -88,6 +92,21 @@
             android:exported="false"
             android:theme="@style/Theme.TvHome"
             android:screenOrientation="landscape" />
+
+        <!-- Batch 4: Meetings screen and Privacy & accounts; the sync alarm receiver. None exported. -->
+        <activity
+            android:name=".MeetingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TvHome"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AccountsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TvHome"
+            android:screenOrientation="landscape" />
+        <receiver
+            android:name=".OfficeSync"
+            android:exported="false" />
 
         <activity
             android:name=".OfficeScreenActivity"

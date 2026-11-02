@@ -76,7 +76,7 @@ final class OfficeHome {
         });
         activity.findViewById(R.id.btnWeather).setOnClickListener(v -> fetchWeather(true));
         activity.findViewById(R.id.btnAlerts).setOnClickListener(v ->
-                Toast.makeText(activity, "No alerts. Alerts arrive in a later batch.", Toast.LENGTH_SHORT).show());
+                activity.startActivity(new android.content.Intent(activity, MeetingsActivity.class)));
         setUpCard(R.id.todayMarvice, R.drawable.logo_marvice, R.string.company_marvice_short,
                 R.string.leader_marvice, R.color.marvice_accent_2);
         setUpCard(R.id.todayInfyst, R.drawable.logo_infyst, R.string.company_infyst_short,
@@ -85,13 +85,18 @@ final class OfficeHome {
         renderWeather();
     }
 
+    private final Runnable dataChanged = this::renderCards;
+
     void onResume() {
+        OfficeData.get(activity).listen(dataChanged);
+        OfficeSync.kick(activity);
         main.removeCallbacks(tick);
         tick.run();
         fetchWeather(false);
     }
 
     void onPause() {
+        OfficeData.get(activity).unlisten(dataChanged);
         main.removeCallbacks(tick);
     }
 
@@ -120,17 +125,47 @@ final class OfficeHome {
     }
 
     private void renderCards() {
-        fillMeetings(activity.findViewById(R.id.todayMarvice), R.array.sample_meetings_marvice, R.color.marvice_accent_2);
-        fillMeetings(activity.findViewById(R.id.todayInfyst), R.array.sample_meetings_infyst, R.color.infyst_accent);
+        fillCard(activity.findViewById(R.id.todayMarvice), Accounts.MARVICE, R.array.sample_meetings_marvice, R.color.marvice_accent_2);
+        fillCard(activity.findViewById(R.id.todayInfyst), Accounts.INFYST, R.array.sample_meetings_infyst, R.color.infyst_accent);
+        renderAlertsPill();
     }
 
-    /** Sample meetings ("HH:mm|minutes|title") for today, next three not yet over, countdown on the next. */
-    private void fillMeetings(View card, int arrayId, int accent) {
-        LinearLayout list = card.findViewById(R.id.cardMeetings);
-        list.removeAllViews();
-        long now = System.currentTimeMillis();
+    /** Alerts pill: how many meeting changes in the last 24 hours; opens the Meetings screen. */
+    private void renderAlertsPill() {
+        TextView pill = activity.findViewById(R.id.btnAlerts);
+        int n = OfficeData.get(activity).alerts().size();
+        pill.setText(n == 0 ? activity.getString(R.string.office_alerts) : activity.getString(R.string.office_alerts) + " " + n);
+    }
+
+    /** Real meetings once this leader's calendar has synced; the sample list until then. Then follow-ups. */
+    private void fillCard(View card, String owner, int sampleArray, int accent) {
+        OfficeData data = OfficeData.get(activity);
         List<long[]> times = new ArrayList<>();
         List<String> titles = new ArrayList<>();
+        long now = System.currentTimeMillis();
+        if (data.hasCalendar(activity, owner)) {
+            for (OfficeData.Ev e : data.today(activity, owner)) {
+                if (e.cancelled || e.end <= now) continue;
+                times.add(new long[]{e.start, e.end});
+                titles.add(e.title);
+            }
+        } else {
+            sampleMeetings(sampleArray, times, titles);
+        }
+        showMeetings(card, times, titles, accent);
+        LinearLayout fu = card.findViewById(R.id.cardFollowups);
+        fu.removeAllViews();
+        List<OfficeData.FollowUp> items = data.followUps(activity, owner);
+        for (int i = 0; i < items.size() && i < 2; i++) {
+            fu.addView(text(items.get(i).line, R.color.office_text_2, R.font.inter_regular));
+        }
+        if (items.size() > 2) fu.addView(text("+" + (items.size() - 2) + " more on Meetings", R.color.office_text_2, R.font.inter_regular));
+        fu.setVisibility(items.isEmpty() ? View.GONE : View.VISIBLE);
+    }
+
+    /** Sample meetings ("HH:mm|minutes|title") for today, until a calendar connects. */
+    private void sampleMeetings(int arrayId, List<long[]> times, List<String> titles) {
+        long now = System.currentTimeMillis();
         for (String row : activity.getResources().getStringArray(arrayId)) {
             String[] p = row.split("\\|", 3);
             if (p.length < 3) continue;
@@ -150,6 +185,13 @@ final class OfficeHome {
                 Log.w(TAG, "skipping a malformed sample meeting");
             }
         }
+    }
+
+    /** Next three meetings not yet over, countdown on the next. */
+    private void showMeetings(View card, List<long[]> times, List<String> titles, int accent) {
+        LinearLayout list = card.findViewById(R.id.cardMeetings);
+        list.removeAllViews();
+        long now = System.currentTimeMillis();
         SimpleDateFormat fmt = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
         fmt.setTimeZone(OFFICE_TZ);
         int shown = 0;

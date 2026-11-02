@@ -149,6 +149,7 @@ if ! printf '%s' "$START_OUT" | grep -qF 'Status: ok' || printf '%s' "$START_OUT
 fi
 printf '%s\n' \
   "pm grant in.marvice.officetv android.permission.ACCESS_FINE_LOCATION 2>/dev/null; echo location-granted" \
+  "appops set in.marvice.officetv SYSTEM_ALERT_WINDOW allow; appops set in.marvice.officetv SCHEDULE_EXACT_ALARM allow; echo overlay-and-alarms-granted" \
   "cmd package compile -m speed -f in.marvice.officetv" \
   "$DISABLE_STOCK" \
   "cmd package set-home-activity --user 0 in.marvice.officetv/com.marvice.officetv.MainActivity" \

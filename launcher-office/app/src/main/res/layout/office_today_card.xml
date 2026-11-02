@@ -58,4 +58,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:orientation="vertical" />
+
+    <!-- Follow-ups (batch 4): up to two lines, shown only when a mailbox is connected and something waits. -->
+    <LinearLayout
+        android:id="@+id/cardFollowups"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:orientation="vertical"
+        android:visibility="gone" />
 </LinearLayout>

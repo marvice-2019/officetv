@@ -12,3 +12,7 @@ tools/adbkey/
 .claude-designlog-hooks.log
 # Local Design-Log working files
 design-log/
+.locks/
+design-log/.conflicts/
+design-log/.code-backlog.md
+design-log/.precompact-snapshot.md
