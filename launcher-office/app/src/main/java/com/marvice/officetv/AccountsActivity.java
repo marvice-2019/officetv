@@ -205,49 +205,62 @@ public class AccountsActivity extends Activity {
         a.kind = Accounts.M365;
         a.tenant = tenant;
         a.clientId = client;
-        io.execute(() -> {
+        android.content.Context app = getApplicationContext();
+        // Its own thread, not io: Back or leaving the screen must not stop a sign-in already made on the phone.
+        Thread t = new Thread(() -> signIn(app, owner, tenant, client, a), "m365-signin");
+        t.setDaemon(true);
+        t.start();
+    }
+
+    private void post(Runnable r) {
+        main.post(() -> { if (!isDestroyed() && !isFinishing()) r.run(); });
+    }
+
+    private void signIn(android.content.Context app, String owner, String tenant, String client, Accounts.Account a) {
             try {
                 Graph.DeviceCode d = Graph.startDeviceCode(tenant, client);
-                main.post(() -> showPanel("Sign in on your phone",
+                Log.i(TAG, "sign-in code issued; waiting for the phone");
+                post(() -> showPanel("Sign in on your phone",
                         "1. Scan the code, or open " + d.verifyUrl.replace("https://", "") + "\n2. Enter the code below\n"
                                 + "3. Sign in as " + Accounts.leaderName(this, owner)
                                 + ". The TV never sees the password.\n\nAllows: read calendar, read mail headers (no bodies), "
                                 + "your name. Nothing can send or delete.", d.verifyUrl, d.userCode));
                 String granted = null;
-                while (!cancelled && System.currentTimeMillis() < d.expiresAt) {
+                while (System.currentTimeMillis() < d.expiresAt) {
                     Thread.sleep(d.interval * 1000L);
-                    granted = Graph.pollDeviceCode(this, a, d);
+                    granted = Graph.pollDeviceCode(app, a, d);
                     if (granted != null) break;
                 }
-                if (cancelled) { new Vault(this).removePrefix(a.vaultPrefix()); return; }
                 if (granted == null) throw new Graph.AuthException("The code expired. Start again.");
-                String[] me = Graph.me(this, a);
-                a.person = me[0].isEmpty() ? Accounts.leaderName(this, owner) : me[0];
+                Log.i(TAG, "Microsoft 365 tokens received; reading the profile");
+                String[] me = Graph.me(app, a);
+                a.person = me[0].isEmpty() ? Accounts.leaderName(app, owner) : me[0];
                 a.ownDomain = me[1];
                 a.reads = Graph.READS;
                 a.scopes = granted.replace("https://graph.microsoft.com/", "").trim();
                 a.connectedAt = System.currentTimeMillis();
-                accounts.save(a);
+                new Accounts(app).save(a);
                 Log.i(TAG, "Microsoft 365 connected");
-                OfficeSync.kick(this);
-                main.post(() -> showPanel("Connected", a.person + "'s calendar and mail headers are connected, read-only. "
+                OfficeSync.kick(app);
+                OfficeSync.show(app, "Microsoft 365 connected: " + a.person, owner, 15_000L);
+                post(() -> showPanel("Connected", a.person + "'s calendar and mail headers are connected, read-only. "
                         + "Press Back.", null, null));
             } catch (Graph.AuthException e) {
-                new Vault(this).removePrefix(a.vaultPrefix());
+                Log.w(TAG, "Microsoft 365 sign-in ended: " + e.getMessage());
+                new Vault(app).removePrefix(a.vaultPrefix());
                         if (e.getMessage() != null && (e.getMessage().contains("client) ID") || e.getMessage().contains("tenant")
                         )) {
                     appRegs.edit().remove(owner + ".tenant").remove(owner + ".client").apply();
                 }
-                main.post(() -> showPanel("Not connected", e.getMessage() + "\n\nPress Back.", null, null));
+                post(() -> showPanel("Not connected", e.getMessage() + "\n\nPress Back.", null, null));
             } catch (InterruptedException e) {
-                new Vault(this).removePrefix(a.vaultPrefix());
+                new Vault(app).removePrefix(a.vaultPrefix());
             } catch (Exception e) {
-                new Vault(this).removePrefix(a.vaultPrefix());
+                new Vault(app).removePrefix(a.vaultPrefix());
                 Log.w(TAG, "connect failed: " + e.getClass().getSimpleName());
-                main.post(() -> showPanel("Not connected", "Network problem (" + e.getClass().getSimpleName()
+                post(() -> showPanel("Not connected", "Network problem (" + e.getClass().getSimpleName()
                         + "). Check the Wi-Fi and press Back to try again.", null, null));
             }
-        });
     }
 
     // ---- IMAP ------------------------------------------------------------------------------------
